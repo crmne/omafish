@@ -1,6 +1,8 @@
 # omafish
 
-Recreates [David Heinemeier Hansson](https://dhh.dk/)'s *omarchy* Bash setup inside [fish shell](https://fishshell.com). The goal is a 1:1 experience so you can follow DHH's dotfiles and muscle memory while enjoying fish ergonomics.
+Recreates [David Heinemeier Hansson](https://dhh.dk/)'s [Omarchy](https://omarchy.org) Bash setup inside [fish shell](https://fishshell.com).
+
+The goal is a 1:1 experience so you can follow DHH's dotfiles and muscle memory while enjoying fish ergonomics.
 
 ## Requirements
 
