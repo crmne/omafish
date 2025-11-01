@@ -6,7 +6,7 @@ The goal is a 1:1 experience so you can follow DHH's dotfiles and muscle memory 
 
 ## Requirements
 
-- [eza](https://github.com/eza-community/eza) for a modern alternative to ls
+- [`eza`](https://github.com/eza-community/eza) for a modern alternative to ls
 - [`mise`](https://mise.jdx.dev/) for runtime/toolchain management
 - [`zoxide`](https://github.com/ajeetdsouza/zoxide) for smarter directory jumps
 - [`starship`](https://starship.rs/) for the prompt
