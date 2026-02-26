@@ -3,6 +3,9 @@ function zd --description 'zoxide-backed cd'
         builtin cd ~; and return
     else if test -d $argv[1]
         builtin cd -- $argv[1]
+    else if not functions -q z
+        echo "Error: zoxide is not initialized in this shell"
+        return 1
     else
         z $argv; and printf "\U000F17A9 "; and pwd || echo "Error: Directory not found"
     end

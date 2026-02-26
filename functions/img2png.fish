@@ -1,9 +1,11 @@
 function img2png
-  set base (string replace -r '\.[^.]*$' '' -- $argv[1])
-  magick "$argv[1]" -strip \
-    -define png:compression-filter=5 \
-    -define png:compression-level=9 \
-    -define png:compression-strategy=1 \
-    -define png:exclude-chunk=all \
-    "$base.png"
+    set img "$argv[1]"
+    set extra $argv[2..-1]
+    set base (string replace -r '\.[^.]*$' '' -- "$img")
+    magick "$img" $extra -strip \
+        -define png:compression-filter=5 \
+        -define png:compression-level=9 \
+        -define png:compression-strategy=1 \
+        -define png:exclude-chunk=all \
+        "$base-optimized.png"
 end

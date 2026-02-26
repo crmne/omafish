@@ -1,11 +1,29 @@
 function iso2sd
-  if test (count $argv) -ne 2
-    echo "Usage: iso2sd <input_file> <output_device>"
-    echo "Example: iso2sd ~/Downloads/ubuntu-25.04-desktop-amd64.iso /dev/sda"
-    printf "\nAvailable SD cards:\n"
-    lsblk -d -o NAME | grep -E '^sd[a-z]' | awk '{print "/dev/"$1}'
-  else
-    sudo dd bs=4M status=progress oflag=sync if="$argv[1]" of="$argv[2]"
-    sudo eject $argv[2]
-  end
+    if test (count $argv) -lt 1
+        echo "Usage: iso2sd <input_file> [output_device]"
+        echo "Example: iso2sd ~/Downloads/ubuntu-25.04-desktop-amd64.iso /dev/sda"
+        return 1
+    end
+
+    set iso "$argv[1]"
+    set drive "$argv[2]"
+
+    if test -z "$drive"
+        set available_sds (lsblk -dpno NAME | grep -E '/dev/sd')
+
+        if test -z "$available_sds"
+            echo "No SD drives found and no drive specified"
+            return 1
+        end
+
+        set drive (omarchy-drive-select "$available_sds")
+
+        if test -z "$drive"
+            echo "No drive selected"
+            return 1
+        end
+    end
+
+    sudo dd bs=4M status=progress oflag=sync if="$iso" of="$drive"
+    sudo eject "$drive"
 end
