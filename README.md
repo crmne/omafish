@@ -16,8 +16,11 @@ The goal is a 1:1 experience so you can follow DHH's dotfiles and muscle memory 
 
 1. Install the [Fish shell](https://fishshell.com)
 2. Install [fisher](https://github.com/jorgebucaran/fisher)
-3. `fisher install PatrickF1/fzf.fish`
-4. `fisher install crmne/omafish`
+3. `fisher install crmne/omafish`
+
+Optional (recommended for better keybindings and interactive search UX):
+
+4. `fisher install PatrickF1/fzf.fish`
 
 If you're not on Omarchy, you'll need to copy [starship.toml](starship.toml) to `~/.config/starship.toml`.
 
