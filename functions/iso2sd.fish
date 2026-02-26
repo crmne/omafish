@@ -16,7 +16,27 @@ function iso2sd
             return 1
         end
 
-        set drive (omarchy-drive-select "$available_sds")
+        if command -q omarchy-drive-select
+            set drive (omarchy-drive-select "$available_sds")
+        else if command -q fzf
+            set drive (printf "%s\n" $available_sds | fzf --prompt="Select target drive > ")
+        else
+            echo "Available drives:"
+            for i in (seq (count $available_sds))
+                echo "  [$i] $available_sds[$i]"
+            end
+
+            read -P "Select drive number: " selection
+            if not string match -qr '^[0-9]+$' -- "$selection"
+                echo "Invalid selection"
+                return 1
+            end
+            if test "$selection" -lt 1 -o "$selection" -gt (count $available_sds)
+                echo "Invalid selection"
+                return 1
+            end
+            set drive $available_sds[$selection]
+        end
 
         if test -z "$drive"
             echo "No drive selected"
