@@ -11,7 +11,4 @@ if status is-interactive
         zoxide init fish | source
     end
 
-    if command -q try
-        try init ~/Work/tries | source
-    end
 end
