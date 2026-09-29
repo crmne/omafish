@@ -22,7 +22,7 @@ function tdp --description 'save and open named profiles of tdl windows'
             end
             set dirs (printf '%s\n' $dirs | awk '!seen[$0]++' | string replace -r "^$HOME" '~')
 
-            set -l picked (printf '%s\n' $dirs | fzf --multi --bind 'start:select-all' \
+            set -l picked (printf '%s\n' $dirs | fzf --multi --layout=reverse --bind 'load:select-all' \
                 --header 'TAB toggles a window, ENTER saves the selected ones' --prompt 'windows> ')
             if test (count $picked) -eq 0
                 echo "Nothing selected, not saving."
