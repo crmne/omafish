@@ -1,4 +1,4 @@
-function cx --description 'clear terminal and run claude with permissive mode'
+function cx --wraps=claude --description 'clear terminal and run claude skipping permission prompts'
     printf "\033[2J\033[3J\033[H"
-    claude --allow-dangerously-skip-permissions $argv
+    command claude --dangerously-skip-permissions $argv
 end
