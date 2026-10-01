@@ -4,8 +4,14 @@ function tsl --description 'create tmux swarm layout and run command in each pan
         return 1
     end
 
+    # Inside herdr, use the herdr version of this layout
+    if test -z "$TMUX"; and set -q HERDR_PANE_ID
+        hsl $argv
+        return
+    end
+
     if test -z "$TMUX"
-        echo "You must start tmux to use tsl."
+        echo "You must start tmux or herdr to use tsl."
         return 1
     end
 

@@ -4,8 +4,14 @@ function tdlm --description 'create one tdl tmux window per subdirectory'
         return 1
     end
 
+    # Inside herdr, use the herdr version of this layout
+    if test -z "$TMUX"; and set -q HERDR_PANE_ID
+        hdlm $argv
+        return
+    end
+
     if test -z "$TMUX"
-        echo "You must start tmux to use tdlm."
+        echo "You must start tmux or herdr to use tdlm."
         return 1
     end
 

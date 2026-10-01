@@ -29,7 +29,7 @@ Everything Omarchy's bash config gives you, as fish functions:
 - **Files and directories:** `ls`, `lsa`, `lt`, `lta` (eza), `ff`, `eff`, `sff`, `cd`/`zd` (zoxide fallback), `..`, `...`, `....`, `n`
 - **Agents and tools:** `c` (opencode), `cx` (claude), `cy` (codex), `a` (omarchy-agent), `d` (docker), `r` (rails), `t` (tmux), `h` (herdr), `mup`, `open`, `try`
 - **Git:** `g`, `gcm`, `gcam`, `gcad` (now abbreviations, see [Git abbreviations](#git-abbreviations)); Omarchy's worktree helpers `ga`/`gd` are `gwa`/`gwd` here, since `ga`/`gd` are `git add`/`git diff`
-- **tmux layouts:** `tdl`, `tdlm`, `tds`, `tsl`, and `ic`/`ix`/`icx` (`tdl` with opencode, claude, or both)
+- **tmux layouts:** `tdl`, `tdlm`, `tds`, `tsl`, and `ic`/`ix`/`icx` (`tdl` with opencode, claude, or both). Inside herdr they run the herdr versions below.
 - **herdr layouts:** `hdl`, `hdlm`, `hds`, `hsl`
 - **Remote:** `fip`/`dip`/`lip` (SSH port forwarding), `rsw`/`lsw`/`dsw` (rsync on change), and an `ssh` wrapper that cleans up the terminal and reconnects dropped sessions
 - **Media:** `img2jpg`, `img2jpg-small`, `img2jpg-medium`, `img2png`, `transcode-video-1080p`, `transcode-video-4K`, `compress`, `decompress`

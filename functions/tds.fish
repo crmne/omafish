@@ -4,8 +4,14 @@ function tds --description 'create tmux dev square with editor, diff watch, term
         return 1
     end
 
+    # Inside herdr, use the herdr version of this layout
+    if test -z "$TMUX"; and set -q HERDR_PANE_ID
+        hds $argv
+        return
+    end
+
     if test -z "$TMUX"
-        echo "You must start tmux to use tds."
+        echo "You must start tmux or herdr to use tds."
         return 1
     end
 
