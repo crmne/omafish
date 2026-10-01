@@ -42,16 +42,30 @@ Where omafish goes beyond Omarchy:
 
 - **Git abbreviations:** a full, focused set in the oh-my-zsh style. See [below](#git-abbreviations).
 - **Agents skip permission prompts:** `cx` runs `claude --dangerously-skip-permissions` and `cy` runs `codex --yolo`.
-- **`tdp`: tmux profiles.** `tdlm` needs every project under one folder. `tdp` saves any set of project folders under a name and reopens them as `tdl` windows, which comes in handy after a reboot or a crash.
+- **`tdp` and `hdp`: reopen your work, AI conversations included.** `tdlm` needs every project under one folder. `tdp` (tmux) and `hdp` (herdr) save any set of project folders under a name, together with the coding agents running in them. Reopening brings back each window as a `tdl` or `hdl` layout and resumes its conversations, which comes in handy after a reboot or a crash.
 
   ```fish
   tdp save [name]          # pick this session's windows with fzf (TAB to drop some), then name the profile
-  tdp work                 # reopen the profile, inside or outside tmux
-  tdp work codex           # choose the AI (default: cx)
+  tdp save work --all      # save every window without asking, e.g. from a timer
+  tdp work                 # reopen the profile and resume its conversations, inside or outside tmux
+  tdp work codex           # start every window fresh with this AI instead
   tdp ls | edit | rm <name>
+  hdp ...                  # the same commands for herdr: tabs instead of windows
   ```
 
-  Profiles are plain text files in `~/.config/tdp/`, one folder per line.
+  Both commands share the same profiles in `~/.config/tdp/`, so you can save in tmux and reopen in herdr. Each line is a folder followed by its agents, separated by tabs:
+
+  ```
+  ~/Code/omafish	claude:3f2b9c1e-...
+  ~/Work/api	codex	opencode
+  ~/Code/blog
+  ```
+
+  - **claude** resumes the exact conversation (`cx --resume <id>`). A claude nobody has typed in yet starts fresh.
+  - **codex** and **opencode** don't report which conversation a process is running, so they continue the latest one in that folder (`cy resume --last`, `c --continue`). Two codex or two opencode panes in one folder both get that same conversation.
+  - A folder with no agents opens with `cx`.
+
+  herdr can also restore its whole session after a restart by itself: install its agent integrations (`herdr integration install claude`, and so on) and keep `resume_agents_on_restore` on in its config. `hdp` is for opening a chosen set of projects, or a profile saved in tmux.
 - **`omarchy` tab completion** for subcommands and their arguments.
 - **fish-native `cd`:** the zoxide fallback keeps fish's directory history, so `cd -`, `prevd`/`nextd`, `cdh`, and Alt+←/→ still work.
 - **Lazy `try`:** loads on first use, so it adds nothing to shell startup.
