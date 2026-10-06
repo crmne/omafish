@@ -1,10 +1,7 @@
 function zd --description 'cd with zoxide fallback'
-    set cd_fn builtin cd
-    functions -q __omafish_cd; and set cd_fn __omafish_cd
-
     # Plain cd for no args, options and history (cd -), and existing directories
     if test (count $argv) -ne 1; or string match -qr '^-' -- $argv[1]; or test -d $argv[1]
-        $cd_fn $argv
+        __omafish_zd_cd $argv
         return $status
     end
 
@@ -14,7 +11,16 @@ function zd --description 'cd with zoxide fallback'
         return 1
     end
 
-    $cd_fn $target; or return
+    __omafish_zd_cd $target; or return
     printf "\U000F17A9 "
     pwd
+end
+
+# fish's own cd (kept by conf.d/init.fish, with directory history), or the builtin
+function __omafish_zd_cd
+    if functions -q __omafish_cd
+        __omafish_cd $argv
+    else
+        builtin cd $argv
+    end
 end

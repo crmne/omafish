@@ -12,7 +12,7 @@ if status is-interactive
 
         # Keep fish's own cd (directory history, cd -, prevd/nextd) for zd to build on
         if not functions -q __omafish_cd
-            and string match -q -r '^embedded:|^/usr/share/fish/' -- (functions --details cd)
+            and string match -q -r "^embedded:|^$__fish_data_dir/" -- (functions --details cd)
             functions --copy cd __omafish_cd
         end
 
