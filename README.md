@@ -38,6 +38,12 @@ Everything Omarchy's bash config gives you, as fish functions:
 
 ## Extras
 
+`open` uses Apple's native opener on macOS, including flags such as
+`open -a Photos`. On Linux it uses `xdg-open`; if neither platform opener is
+available it reports an error. `open photos` refers to a path, not an app name.
+
+Run the opener regression tests with `python3 -m unittest discover -s tests`.
+
 Where omafish goes beyond Omarchy:
 
 - **Git abbreviations:** a full, focused set in the oh-my-zsh style. See [below](#git-abbreviations).
