@@ -10,7 +10,7 @@ function ssh --description 'ssh that cleans up the terminal and reconnects dropp
     set rc $status
 
     isatty stdout; or return $rc
-    __omafish_ssh_disarm
+    __omafish_ssh_disarm $rc
 
     # Reconnect only when an interactive session drops: ssh exits 255 for
     # transport failures, but a fast 255 with no established session is a
@@ -29,15 +29,19 @@ function ssh --description 'ssh that cleans up the terminal and reconnects dropp
         sleep 2; or return 130
         command ssh $argv
         set rc $status
-        __omafish_ssh_disarm
+        __omafish_ssh_disarm $rc
         test $rc -ne 255; and return $rc
     end
 end
 
-# Disarm mouse tracking (1000/1002/1003, 1006 encoding), focus reporting
-# (1004), and the alternate screen (1049), and show the cursor again.
-function __omafish_ssh_disarm
-    printf '\e[?1000l\e[?1002l\e[?1003l\e[?1006l\e[?1004l\e[?1049l\e[?25h'
+# Disarm mouse tracking (1000/1002/1003, 1006 encoding) and focus reporting
+# (1004), and show the cursor again. Leave the alternate screen (1049) only
+# when the connection dropped (255): after a clean exit the remote program has
+# already left it, and leaving it again makes the terminal restore a cursor
+# saved long before, so the next prompt erases a short command's output.
+function __omafish_ssh_disarm --argument-names rc
+    printf '\e[?1000l\e[?1002l\e[?1003l\e[?1006l\e[?1004l\e[?25h'
+    test "$rc" = 255; and printf '\e[?1049l'
 end
 
 # True for an interactive session: a destination and no remote command. The
